@@ -1,0 +1,68 @@
+
+CREATE database commerce;
+use commerce;
+CREATE TABLE user
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username varchar(254),
+  password varchar(60),
+	CONSTRAINT UC_Person UNIQUE (username)
+);
+
+CREATE TABLE product
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(255) UNIQUE,
+  description varchar(500),
+  category_id INT,
+  price INT,
+  is_active BOOLEAN
+);
+insert into product 
+	(name, description, category_id, price, is_active)
+values
+	('book 1', 'this is book 1', 1, 100, true),
+    ('book 2', 'this is book 2', 1, 101, false),
+    ('book 3', 'this is book 3', 2, 100, true),
+    ('book 4', 'this is book 3', 3, 100, true);
+    
+
+
+CREATE TABLE category
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(255)
+);
+
+CREATE TABLE cart
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT
+);
+
+CREATE TABLE cart_item
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  cart_id INT,
+  product_id INT,
+  quantity INT
+);
+
+CREATE TABLE transaction
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  invoice_number varchar(255),
+  total INT,
+  user_id INT,
+  created_at DATETIME,
+  status varchar(25)
+);
+
+CREATE TABLE transaction_item
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  transaction_id INT,
+  product_id INT,
+  quantity INT,
+  price INT
+);
